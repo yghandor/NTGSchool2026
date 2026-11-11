@@ -1,0 +1,38 @@
+<p-splitter
+  [panelSizes]="[10, 90]"
+  [style]="{ height: 'calc(100vh - var(--footer_height)  - var(--menu_height) )' }"
+>
+  <ng-template #panel>
+    <div class="drawingArea h-full">
+      @for (s of AvilableShapList; track s) {
+        <NTG-shape draggable="true"
+                   [shapeInfo]="s"
+                    (drag)="SelectedShapForDrop=s"
+                   [x]="s.x"
+                   [y]="s.y"
+        ></NTG-shape>
+      }
+    </div>
+  </ng-template>
+  <ng-template #panel>
+    <div #drawingArea (mouseup)="SelectShapeForMove=null"
+         (mousemove)="HandleMouseMove($event)"
+         (dragover)="$event.preventDefault()"
+         (drop)="HandleDrop($event,drawingArea)";
+         class="drawingArea  h-full">
+
+      @for (s of ShapeList; track s) {
+        <NTG-shape
+          (mousedown)="HandleShapeSelectation($event , s)"
+
+          [shapeInfo]="s"
+          [x]="s.x"
+          [y]="s.y"
+        ></NTG-shape>
+      }
+
+
+    </div>
+  </ng-template>
+</p-splitter>
+

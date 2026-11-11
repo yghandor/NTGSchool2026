@@ -1,0 +1,15 @@
+@if (shapeInfo) {
+  <svg
+    [style.left]="x"
+    [style.top]="y"
+    [attr.width]="((shapeInfo.width || 100) + 50)"
+    [attr.height]="(shapeInfo.height || 100) + 20">
+    <rect x="50" y="20" rx="20" ry="20" [attr.width]="shapeInfo.width" [attr.height]="shapeInfo.height"
+          style="fill:{{shapeInfo.Color || 'whitesmoke'}};stroke:black;stroke-width:1;opacity:0.5"/>
+
+    <text [attr.x]="((shapeInfo.width || 100) / 2) + 25 - (textWidth/2)"
+          [attr.y]="((shapeInfo.height || 100) / 2) + 20">{{ shapeInfo?.text }}
+    </text>
+
+  </svg>
+}
