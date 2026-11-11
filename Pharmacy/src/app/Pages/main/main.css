@@ -1,0 +1,5 @@
+.pageContent{
+
+  background-color: transparent;
+  min-height: calc(100vh - var(--footer_height)  - var(--menu_height) );
+}

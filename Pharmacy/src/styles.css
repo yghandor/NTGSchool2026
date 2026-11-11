@@ -3,3 +3,7 @@
 
 @import 'tailwindcss-primeui';
 @import "./app/styles/Variables.css";
+
+.p-menubar-item-content{
+  z-index: 1000000;
+}

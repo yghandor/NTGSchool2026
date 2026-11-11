@@ -18,7 +18,7 @@ export class Login {
   }
 
   protected HandleLogin() {
-    this._login.isLogin=true;
+    this._login.setIsLogin(true);
     this._router.navigate(['home']);
 
   }
