@@ -1,0 +1,7 @@
+POST http://localhost:8080/rest/login
+Content-Type: application/json
+
+{
+    "username" : "Yghandor@ntgclarity.com",
+    "password" : "sad"
+}

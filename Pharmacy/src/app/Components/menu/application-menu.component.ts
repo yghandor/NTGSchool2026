@@ -7,7 +7,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { Avatar } from 'primeng/avatar';
 import { Menu, MenuModule } from 'primeng/menu';
 import { LoginService } from '../../Common/loginService';
- import { InputText } from 'primeng/inputtext';
+import { InputText } from 'primeng/inputtext';
 
 @Component({
   imports: [Menubar, Badge, Ripple, NgClass, Avatar, Menu, InputText, NgIf, MenuModule],
@@ -16,7 +16,7 @@ import { LoginService } from '../../Common/loginService';
   templateUrl: './application-menu.component.html',
 })
 export class ApplicationMenu {
-  constructor(private _login: LoginService) {}
+  constructor(public _login: LoginService) {}
 
   items: MenuItem[] = [
     {
@@ -41,7 +41,7 @@ export class ApplicationMenu {
   ];
 
   logMeOut() {
-    this._login.setIsLogin(false);
+    this._login.setIsLogin(false, '');
     window.location.reload();
   }
 }
