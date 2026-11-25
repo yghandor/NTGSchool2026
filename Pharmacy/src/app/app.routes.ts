@@ -16,6 +16,10 @@ export const routes: Routes = [
         path: 'process',
         loadComponent: () => import('./Pages/main/process/process').then((m) => m.Process),
       },
+      {
+        path: 'users',
+        loadComponent: () => import('./Pages/main/users-list/users-list').then((m) => m.UsersList),
+      },
       { path: '**', redirectTo: 'dashboard' },
     ],
   },

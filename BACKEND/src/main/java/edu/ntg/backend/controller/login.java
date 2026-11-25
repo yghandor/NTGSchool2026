@@ -3,35 +3,34 @@ package edu.ntg.backend.controller;
 import edu.ntg.backend.dto.LoginRequest;
 import edu.ntg.backend.dto.LoginResponse;
 import edu.ntg.backend.dto.NTGError;
+import edu.ntg.backend.framework.database.ConnectionManager;
+import edu.ntg.backend.framework.database.NTGConnection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 @RestController
 @RequestMapping("/rest")
 public class login {
 
 
+    @Autowired
+    ConnectionManager con;
+
     @PostMapping("/login")
     public LoginResponse logUser(@RequestBody LoginRequest req) {
-        Connection con = null;
-        Statement stm = null;
+         NTGConnection ConInfo = null;
 
         try {
             System.out.println("**** Try To Login " + req.getUsername());
-
+            ConInfo = con.fetchStatement();
 
             String Sql = BuildFeatchSqlForLoginVerfication(req);
 
-            String url = "jdbc:postgresql://localhost:5432/test";
-            String uname = "postgres";
-            String pass = "hggi";
-            con = DriverManager.getConnection(url, uname, pass);
-            stm = con.createStatement();
-            ResultSet rs = stm.executeQuery(Sql);
+
+
+            ResultSet rs = ConInfo.getStatement().executeQuery(Sql);
             LoginResponse re;
             if (rs.next()) {
 
@@ -50,27 +49,11 @@ public class login {
             ex.printStackTrace();
             return new LoginResponse(new NTGError(ex.getMessage(), "GN000"));
         } finally {
-            freeResources(con, stm);
+            con.freeResources(ConInfo);
         }
     }
 
-    private void freeResources(Connection con, Statement stm) {
-        try {
 
-            if (con != null) {
-
-                if (stm != null) {
-                    stm.close();
-                }
-
-                con.close();
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
 
     private String BuildFeatchSqlForLoginVerfication(LoginRequest req) {
         StringBuffer Sql = new StringBuffer("select * from  public.users where lower(email) like '");

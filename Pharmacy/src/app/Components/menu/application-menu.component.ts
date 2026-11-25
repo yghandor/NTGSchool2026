@@ -29,6 +29,11 @@ export class ApplicationMenu {
       icon: 'pi pi-pencil',
       routerLink: 'process',
     },
+    {
+      label: 'User Managements',
+      icon: 'pi pi-users',
+      routerLink: 'users',
+    },
   ];
 
   avatarMenuItem: MenuItem[] = [
